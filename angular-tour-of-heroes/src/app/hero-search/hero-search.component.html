@@ -1,8 +1,10 @@
 <div id="search-component">
     <h4><label for="search-box">Hero Search</label></h4>
-    <input #searchBox id="search-box" (input)="search(searchBox.value)" />
 
-    <input #searchBox id="search-box" (input)="search(searchBox.value)" />
+    <mat-form-field class="example-full-width">
+        <mat-label>Search of Heroes</mat-label>
+        <input #searchBox id="search-box" (input)="search(searchBox.value)" matInput placeholder="Enter name of Heroes" />
+    </mat-form-field>
 
     <ul class="search-result">
         <li *ngFor="let hero of heroes$ | async">
