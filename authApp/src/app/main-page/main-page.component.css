@@ -1,0 +1,28 @@
+* {
+    color: #fff;
+    text-align: center;
+}
+
+.card {
+    max-width: 500px;
+    margin: 100px auto;
+    background: #3f51b5;
+    border-radius: 15px;
+    padding: 30px;
+}
+
+.main-title {
+    font-size: 36px;
+}
+
+.sub-title {
+    font-size: 18px;
+}
+
+.logout {
+    padding: 5px;
+    width: 50%;
+    color: #3f51b5;
+    font-size: 18px;
+    font-weight: 500;
+}

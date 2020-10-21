@@ -1,0 +1,42 @@
+<mat-card color="primary" class="card">
+    <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+        <mat-card-title class="card-title">Log in</mat-card-title>
+        <mat-card-subtitle class="card-subtitle">
+            Login in your account
+        </mat-card-subtitle>
+        <div mat-card-avatar class="header-image"></div>
+        <mat-form-field appearance="fill">
+            <mat-label>Enter your username</mat-label>
+            <input
+                name="username"
+                matInput
+                placeholder="usermane"
+                #username="ngModel"
+                [formControl]="username"
+                required
+            />
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Enter your password</mat-label>
+            <input
+                name="password"
+                matInput
+                [type]="!hide ? 'password' : 'text'"
+            />
+            <button
+                mat-icon-button
+                matSuffix
+                (click)="hide = !hide"
+                [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hide"
+            >
+                <mat-icon>{{
+                    hide ? "visibility_off" : "visibility"
+                }}</mat-icon>
+            </button>
+        </mat-form-field>
+        <button class="button-submit">Login</button>
+
+        <a class="forgot-pas" routerLink="/restore-password">Forgot password</a>
+    </form>
+</mat-card>
