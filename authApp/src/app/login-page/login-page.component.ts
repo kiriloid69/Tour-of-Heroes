@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators, NgForm } from '@angular/forms';
+import { FormControl, Validators, FormGroup } from '@angular/forms';
+import { USERS } from '../auth/databaseUsers';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
     selector: 'app-login-page',
@@ -7,21 +9,49 @@ import { FormControl, Validators, NgForm } from '@angular/forms';
     styleUrls: ['./login-page.component.css'],
 })
 export class LoginPageComponent implements OnInit {
-    constructor() {}
+    constructor(private authService: AuthService) {}
 
-    email = new FormControl('', [Validators.required, Validators.email]);
+    loginForm = new FormGroup({
+        username: new FormControl(
+            '',
+            Validators.compose([
+                Validators.maxLength(20),
+                Validators.pattern('[a-zA-Z_0-9_.]*'),
+                Validators.required,
+            ])
+        ),
+        password: new FormControl(
+            '',
+            Validators.compose([
+                Validators.maxLength(50),
+                Validators.pattern('[a-zA-Z_0-9_.]*'),
+                Validators.required,
+            ])
+        ),
+    });
 
-    getErrorMessage() {
-        if (this.email.hasError('required')) {
-            return 'You must enter a value';
+    hide = true;
+
+    onSubmit() {
+        let userObj = Object.values(this.loginForm.value);
+        let username = userObj[0];
+        let password = userObj[1];
+        console.log(userObj[0]);
+        console.log(userObj[1]);
+
+        for (let i = 0; i < USERS.length; i++) {
+            if (USERS[i].username == username) {
+                if (USERS[i].password == password) {
+                    alert('you login!');
+                    this.authService.isLogged = true;
+                    break;
+                } else {
+                    alert('false password')
+                }
+            } else {
+                alert('false name');
+            }
         }
-
-        return this.email.hasError('email') ? 'Not a valid email' : '';
-    }
-
-    onSubmit(f: NgForm) {
-      console.log(f.value);  // { username: '', password: '' }
-      console.log(f.valid);  // false
     }
 
     ngOnInit(): void {}

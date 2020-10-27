@@ -1,10 +1,12 @@
     <mat-toolbar color="primary">
         <span style="cursor: pointer;" routerLink="/">Authorization Application</span>
         <span class="example-spacer"></span>
-        <button mat-stroked-button class="router-links" routerLink="/login">
-            Login
-        </button>
-        <button mat-stroked-button class="router-links" routerLink="/register">
-            Register
-        </button>
+        <div *ngIf="isLogin()">
+            <button mat-stroked-button class="router-links" routerLink="/login">
+                Login
+            </button>
+            <button mat-stroked-button class="router-links" routerLink="/register">
+                Register
+            </button>
+        </div>
     </mat-toolbar>

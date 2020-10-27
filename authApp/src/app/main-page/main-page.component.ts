@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { USERS } from '../auth/databaseUsers';
 
 @Component({
   selector: 'app-main-page',
@@ -6,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./main-page.component.css']
 })
 export class MainPageComponent implements OnInit {
-
+  user = USERS;
   constructor() { }
 
   ngOnInit(): void {

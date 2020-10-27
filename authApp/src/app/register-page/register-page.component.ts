@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators, NgForm } from '@angular/forms';
+import { FormControl, FormGroup, Validators, NgForm, AbstractControl } from '@angular/forms';
+// import { from } from 'rxjs';
 
 @Component({
     selector: 'app-register-page',
@@ -7,17 +8,33 @@ import { FormControl, Validators, NgForm } from '@angular/forms';
     styleUrls: ['./register-page.component.css'],
 })
 export class RegisterPageComponent implements OnInit {
-    email = new FormControl('', [Validators.required, Validators.email]);
+    constructor() {}
+
+    registerForm = new FormGroup({
+        username: new FormControl('', Validators.compose([Validators.maxLength(20), Validators.pattern('[a-zA-Z]*'), Validators.required])),
+        email: new FormControl('', [Validators.required, Validators.email]),
+        password: new FormControl('', Validators.compose([Validators.maxLength(50), Validators.pattern('[a-zA-Z]*'), Validators.required])),
+        repeatPassword: new FormControl('', Validators.compose([Validators.maxLength(50), Validators.pattern('[a-zA-Z]*'), Validators.required])),
+    });
+
+    hide = true;
 
     getErrorMessage() {
-        if (this.email.hasError('required')) {
+        if (this.registerForm.controls.email.hasError('required')) {
             return 'You must enter a value';
         }
 
-        return this.email.hasError('email') ? 'Not a valid email' : '';
+        return this.registerForm.controls.email.hasError('email') ? 'Not a valid email' : '';
     }
 
-    constructor() {}
+    onSubmit() {
+        console.warn(this.registerForm.invalid);
+        if (this.registerForm.invalid) {
+           console.warn(this.registerForm.value);  
+        }
+    }
+
+    
 
     ngOnInit(): void {}
 }

@@ -1,51 +1,72 @@
 <mat-card color="primary" class="card">
-    <mat-card-title class="card-title">Register</mat-card-title>
-    <mat-card-subtitle class="card-subtitle"
-        >Register in our app</mat-card-subtitle
-    >
-    <div mat-card-avatar class="header-image-reg"></div>
-    <mat-form-field appearance="fill">
-        <mat-label>Enter your username</mat-label>
-        <input
-            matInput
-            placeholder="usermane"
-            [formControl]="username"
-            required
-        />
-    </mat-form-field>
-    <mat-form-field appearance="fill">
-        <mat-label>Enter your email</mat-label>
-        <input
-            matInput
-            placeholder="inbox@gmail.com"
-            [formControl]="email"
-            required
-        />
-        <mat-error *ngIf="email.invalid">{{ getErrorMessage() }}</mat-error>
-    </mat-form-field>
-    <mat-form-field appearance="fill">
-        <mat-label>Enter your password</mat-label>
-        <input matInput [type]="!hide ? 'password' : 'text'" />
-        <button
-            mat-icon-button
-            matSuffix
-            (click)="hide = !hide"
-            [attr.aria-label]="'Hide password'"
-            [attr.aria-pressed]="hide"
-        >
-            <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <mat-card-title class="card-title">Register</mat-card-title>
+        <mat-card-subtitle class="card-subtitle">
+            Register in app
+        </mat-card-subtitle>
+        <div mat-card-avatar class="header-image-reg"></div>
+        <mat-form-field appearance="fill">
+            <mat-label>Enter your username</mat-label>
+            <input
+                name="usermane"
+                formControlName="username"
+                matInput
+                placeholder="usermane"
+                required
+            />
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Enter your email</mat-label>
+            <input
+                name="email"
+                matInput
+                formControlName="email"
+                placeholder="inbox@gmail.com"
+                required
+            />
+            <mat-error>{{ getErrorMessage() }}</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Enter your password</mat-label>
+            <input
+                name="password"
+                formControlName="password"
+                matInput
+                [type]="hide ? 'password' : 'text'"
+                required
+                autocomplete
+            />
+            <button
+                mat-icon-button
+                matSuffix
+                type = "button"
+                (click)="hide = !hide"
+                [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hide"
+            >
+                <mat-icon>{{
+                    hide ? "visibility_off" : "visibility"
+                }}</mat-icon>
+            </button>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Repeat your password</mat-label>
+            <input
+                name="repeatPassword"
+                formControlName="repeatPassword"
+                matInput
+                [type]="hide ? 'password' : 'text'"
+                required
+                autocomplete
+            />
+            <button
+                mat-icon-button
+                matSuffix
+                [attr.aria-label]="'Hide password'"
+            ></button>
+        </mat-form-field>
+        <button type="submit" class="button-submit">
+            Register<i class="fas fa-sign-in-alt"></i>
         </button>
-    </mat-form-field>
-    <mat-form-field appearance="fill">
-        <mat-label>Repeat your password</mat-label>
-        <input matInput [type]="!hide ? 'password' : 'text'" />
-        <button
-            mat-icon-button
-            matSuffix
-            [attr.aria-label]="'Hide password'"
-        ></button>
-    </mat-form-field>
-    <button class="button-submit">
-        Register<i class="fas fa-sign-in-alt"></i>
-    </button>
+    </form>
 </mat-card>

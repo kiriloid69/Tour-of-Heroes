@@ -1,6 +1,7 @@
 <div class="card">
-    <h2 class="main-title">Hello, User</h2>
-    <p class="sub-title">Your email: <span>email@gmail.com</span></p>
-    <p class="sub-title">Your password: <span>qwerty12345</span>
-    <div><button class="logout">Logout</button></div>
+    <div>
+        <h2 class="main-title">Hello, <span>{{user[0].username}}</span></h2>
+        <p class="sub-title">Your email: <span>{{user[0].email}}</span></p>
+        <div><button class="logout">Logout</button></div>
+    </div>
 </div>
