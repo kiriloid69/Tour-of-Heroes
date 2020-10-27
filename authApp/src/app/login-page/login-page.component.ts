@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
+import { Router } from "@angular/router";
 import { USERS } from '../auth/databaseUsers';
 import { AuthService } from '../auth/auth.service';
 
@@ -9,7 +10,8 @@ import { AuthService } from '../auth/auth.service';
     styleUrls: ['./login-page.component.css'],
 })
 export class LoginPageComponent implements OnInit {
-    constructor(private authService: AuthService) {}
+
+    constructor(private authService: AuthService, private router: Router) {}
 
     loginForm = new FormGroup({
         username: new FormControl(
@@ -44,6 +46,8 @@ export class LoginPageComponent implements OnInit {
                 if (USERS[i].password == password) {
                     alert('you login!');
                     this.authService.isLogged = true;
+                    this.router.navigateByUrl('/');
+                    this.authService.i = i;
                     break;
                 } else {
                     alert('false password')

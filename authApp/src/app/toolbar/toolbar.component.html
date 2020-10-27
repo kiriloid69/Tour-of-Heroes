@@ -9,4 +9,9 @@
                 Register
             </button>
         </div>
+        <div *ngIf="!isLogin()">
+            <button mat-stroked-button class="router-links" routerLink="/login">
+                Hello, {{ user[this.authService.i].username }}
+            </button>
+        </div>
     </mat-toolbar>

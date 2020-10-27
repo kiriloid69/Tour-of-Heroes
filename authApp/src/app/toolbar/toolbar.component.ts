@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthModule } from '../auth/auth.module';
+import { USERS } from '../auth/databaseUsers';
 import { AuthService } from '../auth/auth.service';
 
 @Component({
@@ -9,7 +9,8 @@ import { AuthService } from '../auth/auth.service';
 })
 export class ToolbarComponent implements OnInit {
 
-
+  user = USERS;
+  
   constructor(private authService: AuthService) { }
 
   isLogin() {

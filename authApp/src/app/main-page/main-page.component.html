@@ -1,7 +1,75 @@
-<div class="card">
-    <div>
-        <h2 class="main-title">Hello, <span>{{user[0].username}}</span></h2>
-        <p class="sub-title">Your email: <span>{{user[0].email}}</span></p>
-        <div><button class="logout">Logout</button></div>
+<div *ngIf="isLogin()" class="card">
+    <h2 class="main-title">
+        Hello, <span>you can try login or register</span>
+    </h2>
+    <div style="text-align: center;">
+        <button style="margin: 0 5px;" mat-raised-button routerLink="/login">Login</button>
+        <button style="margin: 0 5px;" mat-raised-button routerLink="/register">Register</button>
     </div>
+</div>
+
+<div *ngIf="!isLogin()" class="card">
+    <h2 class="main-title">
+        Hello, <span>{{ user[this.authService.i].username }}</span>
+    </h2>
+    <p class="sub-title">
+        Your email: <span>{{ user[this.authService.i].email }}</span>
+    </p>
+    <div><button mat-raised-button class="logout">Logout</button></div>
+</div>
+
+<div *ngIf="!isLogin()" class="crud">
+    <mat-form-field>
+        <mat-label>Filter</mat-label>
+        <input
+            matInput
+            (keyup)="applyFilter($event)"
+            placeholder="Ex. ium"
+            #input
+        />
+    </mat-form-field>
+
+    <table mat-table [dataSource]="user" class="mat-elevation-z8">
+        Position Column
+        <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef>ID</th>
+            <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+        </ng-container>
+
+        <!-- Username Column -->
+        <ng-container matColumnDef="username">
+            <th mat-header-cell *matHeaderCellDef>Username</th>
+            <td mat-cell *matCellDef="let element">{{ element.username }}</td>
+        </ng-container>
+
+        <!-- Email Column -->
+        <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef>Email</th>
+            <td mat-cell *matCellDef="let element">{{ element.email }}</td>
+        </ng-container>
+
+        <!-- Password Column -->
+        <ng-container matColumnDef="password">
+            <th mat-header-cell *matHeaderCellDef>Password</th>
+            <td mat-cell *matCellDef="let element">{{ element.password }}</td>
+        </ng-container>
+
+        <!-- Verification Column -->
+        <ng-container matColumnDef="verify">
+            <th mat-header-cell *matHeaderCellDef>Verification</th>
+            <td mat-cell *matCellDef="let element">
+                {{ element.verification }}
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+        <!-- Row shown when there is no matching data. -->
+        <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="4">
+                No data matching the filter "{{ input.value }}"
+            </td>
+        </tr>
+    </table>
 </div>
