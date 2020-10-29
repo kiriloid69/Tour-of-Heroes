@@ -29,4 +29,32 @@ export const USERS: User[] = [
         password: 'qwerty123',
         verification: false,
     },
+    {
+        id: 5,
+        username: 'natali.daineko',
+        email: 'natalie.daineko@gmail.com',
+        password: '83ZuDuRu',
+        verification: false,
+    },
+    {
+        id: 6,
+        username: 'kirill',
+        email: 'kirill@gmail.com',
+        password: '123',
+        verification: false,
+    },
+    {
+        id: 7,
+        username: 'Dmitry',
+        email: 'dima.dmitr@mail.ru',
+        password: '1488',
+        verification: false,
+    },
+    {
+        id: 8,
+        username: 'sasha',
+        email: 'sasha@gmail.com',
+        password: 'sasha123',
+        verification: false,
+    }
 ];

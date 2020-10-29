@@ -10,8 +10,9 @@
             </button>
         </div>
         <div *ngIf="!isLogin()">
+            <span style="font-size: 14px; font-weight: 400;">Hello, <span style=" font-weight: 700;">{{ user[this.authService.i].username }}</span></span>
             <button mat-stroked-button class="router-links" routerLink="/login">
-                Hello, {{ user[this.authService.i].username }}
+                Logout
             </button>
         </div>
     </mat-toolbar>

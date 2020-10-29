@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators, NgForm, AbstractControl } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 // import { from } from 'rxjs';
 
 @Component({
@@ -16,6 +16,16 @@ export class RegisterPageComponent implements OnInit {
         password: new FormControl('', Validators.compose([Validators.maxLength(50), Validators.pattern('[a-zA-Z]*'), Validators.required])),
         repeatPassword: new FormControl('', Validators.compose([Validators.maxLength(50), Validators.pattern('[a-zA-Z]*'), Validators.required])),
     });
+
+    initializeRegisterForm() {
+        this.registerForm.setValue({
+            $key: null,
+            username: '',
+            email: '',
+            password: '',
+            repeatPassword: ''
+        });
+    }
 
     hide = true;
 

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
-import { Router } from "@angular/router";
+import { Router } from '@angular/router';
 import { USERS } from '../auth/databaseUsers';
 import { AuthService } from '../auth/auth.service';
 
@@ -10,7 +10,6 @@ import { AuthService } from '../auth/auth.service';
     styleUrls: ['./login-page.component.css'],
 })
 export class LoginPageComponent implements OnInit {
-
     constructor(private authService: AuthService, private router: Router) {}
 
     loginForm = new FormGroup({
@@ -32,6 +31,14 @@ export class LoginPageComponent implements OnInit {
         ),
     });
 
+    initializeLoginForm() {
+        this.loginForm.setValue({
+            $key: null,
+            username: '',
+            password: '',
+        });
+    }
+
     hide = true;
 
     onSubmit() {
@@ -44,16 +51,11 @@ export class LoginPageComponent implements OnInit {
         for (let i = 0; i < USERS.length; i++) {
             if (USERS[i].username == username) {
                 if (USERS[i].password == password) {
-                    alert('you login!');
                     this.authService.isLogged = true;
                     this.router.navigateByUrl('/');
                     this.authService.i = i;
                     break;
-                } else {
-                    alert('false password')
                 }
-            } else {
-                alert('false name');
             }
         }
     }

@@ -1,0 +1,38 @@
+<form [formGroup]="createForm" (ngSubmit)="onSubmit()">
+    <mat-card-title class="card-title">Create new user</mat-card-title>
+    <mat-form-field style="display: block; margin-top: 25px;" appearance="fill">
+        <mat-label>Enter username</mat-label>
+        <input
+            name="usermane"
+            formControlName="username"
+            matInput
+            required
+        />
+    </mat-form-field>
+    <mat-form-field style="display: block;" appearance="fill">
+        <mat-label>Enter email</mat-label>
+        <input
+            name="email"
+            matInput
+            formControlName="email"
+            required
+        />
+        <mat-error>{{ getErrorMessage() }}</mat-error>
+    </mat-form-field>
+    <mat-form-field style="display: block;" appearance="fill">
+        <mat-label>Enter password</mat-label>
+        <input
+            name="password"
+            formControlName="password"
+            matInput
+            required
+            autocomplete
+        />
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit">
+        Create
+    </button>
+    <button style="margin-left: 10px;" mat-raised-button color="warn" type="submit">
+        Clear
+    </button>
+</form>
