@@ -1,7 +1,7 @@
 
-<div mat-dialog-content>
+<mat-dialog-content>
   <div *ngIf="action != 'Delete'; else elseTemplate">
-    <mat-card-title class="card-title"><strong>{{action}}</strong> user</mat-card-title>
+    <mat-card-title class="card-title">{{action}} user</mat-card-title>
     <mat-form-field style="display: block; margin-top: 25px;" appearance="fill">
         <mat-label>Enter username</mat-label>
         <input name="usermane"[(ngModel)]="local_data.username"matInput required/>
@@ -19,7 +19,7 @@
   <ng-template #elseTemplate>
     Sure to delete <b>{{local_data.username}}</b>?
   </ng-template>
-</div>
+</mat-dialog-content>
 <div mat-dialog-actions>
   <button mat-raised-button color="primary" (click)="doAction()">{{action}}</button>
   <button mat-flat-button color="warn" (click)="closeDialog()">Cancel</button>
