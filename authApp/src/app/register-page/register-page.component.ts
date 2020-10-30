@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-// import { from } from 'rxjs';
 
 @Component({
     selector: 'app-register-page',

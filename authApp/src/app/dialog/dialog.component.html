@@ -1,0 +1,59 @@
+
+<div mat-dialog-content>
+  <div *ngIf="action != 'Delete'; else elseTemplate">
+    <mat-card-title class="card-title"><strong>{{action}}</strong> user</mat-card-title>
+    <mat-form-field style="display: block; margin-top: 25px;" appearance="fill">
+        <mat-label>Enter username</mat-label>
+        <input name="usermane"[(ngModel)]="local_data.username"matInput required/>
+    </mat-form-field>
+    <mat-form-field style="display: block;" appearance="fill">
+        <mat-label>Enter email</mat-label>
+        <input [(ngModel)]="local_data.email" matInput required />
+    </mat-form-field>
+    <mat-form-field style="display: block;" appearance="fill">
+        <mat-label>Enter password</mat-label>
+        <input name="password" [(ngModel)]="local_data.password" matInput required />
+    </mat-form-field>
+
+  </div>
+  <ng-template #elseTemplate>
+    Sure to delete <b>{{local_data.username}}</b>?
+  </ng-template>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button color="primary" (click)="doAction()">{{action}}</button>
+  <button mat-flat-button color="warn" (click)="closeDialog()">Cancel</button>
+</div> 
+    <!-- <mat-card-title class="card-title">Create new user</mat-card-title>
+    <mat-form-field style="display: block; margin-top: 25px" appearance="fill">
+        <mat-label>Enter username</mat-label>
+        <input
+            name="usermane"
+            [(ngModel)]="local_data.email"
+            matInput
+            required
+        />
+    </mat-form-field>
+    <mat-form-field style="display: block" appearance="fill">
+        <mat-label>Enter email</mat-label>
+        <input name="email" matInput [(ngModel)]="local_data.email" required />
+    </mat-form-field>
+    <mat-form-field style="display: block" appearance="fill">
+        <mat-label>Enter password</mat-label>
+        <input
+            name="password"
+            [(ngModel)]="local_data.email"
+            matInput
+            required
+            autocomplete
+        />
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)>Create</button>
+    <button
+        style="margin-left: 10px"
+        mat-raised-button
+        color="warn"
+        type="submit"
+    >
+        Clear
+    </button> -->

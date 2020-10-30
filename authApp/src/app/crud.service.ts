@@ -10,7 +10,4 @@ export class CrudService {
 
   constructor() { }
 
-  deleteUser() {
-    this.user.remove($key)
-  }
 }

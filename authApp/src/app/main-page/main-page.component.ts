@@ -1,11 +1,9 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
+import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { USERS } from '../auth/databaseUsers';
 import { AuthService } from '../auth/auth.service';
 import { MatDialog } from '@angular/material/dialog';
-import { EditDialogComponent } from '../dialog/edit-dialog/edit-dialog.component';
-import { CreateDialogComponent } from '../dialog/create-dialog/create-dialog.component';
-import { tap } from 'rxjs/operators';
+import { DialogComponent } from '../dialog/dialog.component';
 
 @Component({
     selector: 'app-main-page',
@@ -15,6 +13,11 @@ import { tap } from 'rxjs/operators';
 export class MainPageComponent implements OnInit {
     constructor(private authService: AuthService, public dialog: MatDialog) {}
 
+    @ViewChild(MatTable, { static: true }) table: MatTable<any>;
+
+    userData = new MatTableDataSource(USERS);
+    user = USERS;
+
     displayedColumns: string[] = [
         'id',
         'username',
@@ -23,51 +26,58 @@ export class MainPageComponent implements OnInit {
         'verify',
         'edit',
     ];
-    userData = new MatTableDataSource(USERS);
-    user = USERS;
-
-    getUser() {
-        
-    }
 
     isLogin() {
         return !this.authService.isLogged;
     }
 
-    onEdit() {
-        this.dialog.open(EditDialogComponent);
-        console.log(this.getUser())
+    openDialog(action, obj) {
+        obj.action = action;
+        const dialogRef = this.dialog.open(DialogComponent, {
+            width: '500px',
+            data: obj,
+        });
+
+        dialogRef.afterClosed().subscribe((result) => {
+            if (result.event == 'Add') {
+                this. createUser(result.data);
+            } else if (result.event == 'Create') {
+                this.editUser(result.data);
+            } else if (result.event == 'Delete') {
+                this.deleteUser(result.data);
+            }
+        });
     }
 
-    onCreate() {
-        this.dialog.open(CreateDialogComponent);
+     createUser(row_obj) {
+        this.user.push({
+            id: this.user.length + 1,
+            username: row_obj.username,
+            email: row_obj.email,
+            password: row_obj.password,
+            verification: false,
+        });
+        this.table.renderRows();
+        console.log(this.user.length + 1)
     }
-
-    onDelete() {
-        // const id = typeof this.user === 'number' ? this.user : this.user;
-        // console.log(id)
+    editUser(row_obj) {
+        this.user = this.user.filter((value, key) => {
+            if (value.id == row_obj.id) {
+                value.username = row_obj.name;
+            }
+            return true;
+        });
     }
-
-    // deleteUser(user: User): void {
-    //     this.user = this.user.filter((h) => h !== user);
-    //     this.heroService.deleteHero(hero).subscribe();
-    // }
-
-    // addUser(name: string): void {
-    //     name = name.trim();
-    //     if (!name) {
-    //         return;
-    //     }
-    //     this.heroService.addHero({ username } as User).subscribe((hero) => {
-    //         this.heroes.push(hero);
-    //     });
-    // }
+    deleteUser(row_obj) {
+        this.user = this.user.filter((value, key) => {
+            return value.id != row_obj.id;
+        });
+    }
 
     applyFilter(event: Event) {
         const filterValue = (event.target as HTMLInputElement).value;
         this.userData.filter = filterValue.trim().toLowerCase();
     }
 
-    ngOnInit(): void {
-    }
+    ngOnInit(): void {}
 }

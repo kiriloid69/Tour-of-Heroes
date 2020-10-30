@@ -15,8 +15,7 @@ import { AuthService } from './auth/auth.service';
 import { RestorePasswordComponent } from './restore-password/restore-password.component';
 import { RegisterPageComponent } from './register-page/register-page.component';
 import { LoginPageComponent } from './login-page/login-page.component';
-import { EditDialogComponent } from './dialog/edit-dialog/edit-dialog.component';
-import { CreateDialogComponent } from './dialog/create-dialog/create-dialog.component';
+import { DialogComponent } from './dialog/dialog.component';
 
 @NgModule({
     declarations: [
@@ -27,12 +26,7 @@ import { CreateDialogComponent } from './dialog/create-dialog/create-dialog.comp
         ToolbarComponent,
         MainPageComponent,
         ValueComponent,
-        EditDialogComponent,
-        CreateDialogComponent
-    ],
-    entryComponents: [
-        EditDialogComponent,
-        CreateDialogComponent
+        DialogComponent
     ],
     imports: [
         BrowserModule,
