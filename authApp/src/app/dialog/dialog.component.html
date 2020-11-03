@@ -1,5 +1,5 @@
 <mat-dialog-content>
-    <div *ngIf="action != 'Delete'; else elseTemplate">
+    <div name="form" *ngIf="action != 'Delete'; else elseTemplate">
         <mat-card-title class="card-title">{{ action }} user</mat-card-title>
         <mat-form-field
             style="display: block; margin-top: 25px"
@@ -42,7 +42,6 @@
                 name="password"
                 [(ngModel)]="local_data.department"
                 matInput
-                required
             />
         </mat-form-field>
         <mat-form-field appearance="fill">
@@ -52,7 +51,7 @@
                 <mat-option value="false">false</mat-option>
             </mat-select>
         </mat-form-field>
-        <mat-form-field style="margin-left: 20px;" appearance="fill">
+        <mat-form-field style="margin-left: 20px" appearance="fill">
             <mat-label>Verify</mat-label>
             <mat-select [(ngModel)]="local_data.verification">
                 <mat-option value="true">true</mat-option>
@@ -66,7 +65,12 @@
     </ng-template>
 </mat-dialog-content>
 <div mat-dialog-actions>
-    <button mat-raised-button color="primary" (click)="doAction()">
+    <button
+        mat-raised-button
+        color="primary"
+        (click)="doAction()"
+        ng-disabled="form.$invalid"
+    >
         {{ action }}
     </button>
     <button mat-flat-button color="warn" (click)="closeDialog()">Cancel</button>
