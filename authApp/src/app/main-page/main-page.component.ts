@@ -14,10 +14,7 @@ import { DialogComponent } from '../dialog/dialog.component';
 export class MainPageComponent implements OnInit {
     constructor(private authService: AuthService, public dialog: MatDialog) {}
 
-    @ViewChild('table') table: MatTable<Element>;
-
     userData = new MatTableDataSource(USERS);
-
 
     displayedColumns: string[] = [
         'id',
@@ -27,12 +24,14 @@ export class MainPageComponent implements OnInit {
         'department',
         'teamlead',
         'verification',
-        'edit'
+        'edit',
         //age { < 30 }
         //department { all, all depart, no depart }
         //teamlead(bool) { teamlead , not teamlead} 
         //sort ++
     ];
+
+    @ViewChild('table') table: MatTable<Element>;
 
     isLogin() {
         return !this.authService.isLogged;
@@ -66,9 +65,8 @@ export class MainPageComponent implements OnInit {
             teamlead: row_obj.department,
             verification: row_obj.verification,
         });
-        console.log('я работаюы');
+        console.log(row_obj);
         this.table.renderRows();
-        // return true;
     }
     editUser(row_obj) {
         this.userData.data = this.userData.data.filter((value, key) => {
@@ -101,9 +99,8 @@ export class MainPageComponent implements OnInit {
         this.userData.filter = filterValue.trim().toLowerCase();
     }
 
-    ageOption: string;
-    departmentOption: string;
-    teamleadOption: string;
+    // selectedOption: string;
+    // printedOption: string;
 
     ageParam = [
         { name: 'all', value: 1 },
@@ -119,59 +116,13 @@ export class MainPageComponent implements OnInit {
 
     teamleadParam = [
         { name: 'all', value: 1 },
-        { name: 'teamlead', value: 2 },
+        { name: 'teamLead', value: 2 },
         { name: 'not teamlead', value: 3 },
     ];
 
-    dataFilter(dataFilter) {
-        let data = 'this.' + dataFilter + 'Param';
-        if (data === 'this.ageParam') {
-            console.log(this.ageParam.values())
-            if (this.ageOption === "all") {
-                this.userData.filter = ''.trim().toLowerCase();
-            }
-
-            if (this.ageOption === "up to 30 years") {
-                let mas= [1, 2, 3];
-                for (let i = 1; i <= 30; i++) {
-                    if (this.userData.data[i].age <= 20)
-                        mas.push(i);
-                }
-                // console.log ( mas );
-                // console.log (this.userData.data[1].age)
-                // this.userData.filter = mas.trim().toLowerCase();
-            }
-
-            if (this.ageOption === "over 30 years") {
-                this.userData.filter = '36'.trim().toLowerCase();
-            }
-        } 
-        if (data === 'this.departmentParam') {
-            if (this.departmentOption === "all") {
-                this.userData.filter = ''.trim().toLowerCase();
-            }
-
-            if (this.departmentOption === "all department") {
-                this.userData.filter = 'IT'.trim().toLowerCase();
-            }
-
-            if (this.departmentOption === "no department") {
-                this.userData.filter = 'Marketing'.trim().toLowerCase();
-            }
-        }
-        if (data === 'this.teamleadParam') {
-            if (this.teamleadOption === "all") {
-                this.userData.filter = ''.trim().toLowerCase();
-            }
-
-            if (this.teamleadOption === "teamlead") {
-                this.userData.filter = 'IT'.trim().toLowerCase();
-            }
-
-            if (this.teamleadOption === "not teamlead") {
-                this.userData.filter = 'Marketing'.trim().toLowerCase();
-            }
-        }
+    ageFilter() {
+        console.log(this.ageParam);
+        console.log(1);
         // if (this.selected == '1') {
         //     this.age = 'yes';
         // } else if (this.selected == '2') {
@@ -185,5 +136,5 @@ export class MainPageComponent implements OnInit {
         // }
     }
 
-    ngOnInit(): void { }
+    ngOnInit(): void {}
 }

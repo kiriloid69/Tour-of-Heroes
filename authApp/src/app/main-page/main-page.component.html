@@ -22,10 +22,14 @@
         Create user <mat-icon style="height: 26px"> add </mat-icon>
     </button>
 
+<<<<<<< HEAD
     <mat-form-field appearance="fill">
 =======
     <mat-form-field>
 >>>>>>> parent of b8a0f90... sort
+=======
+    <mat-form-field>
+>>>>>>> parent of 164faac... sort2
         <mat-label>Search</mat-label>
         <input
             matInput
@@ -35,18 +39,21 @@
         />
     </mat-form-field>
 <<<<<<< HEAD
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of 164faac... sort2
     <mat-form-field class="select-table" appearance="fill">
         <mat-label>Age</mat-label>
-        <mat-select [(ngModel)]="ageOption" (selectionChange)="dataFilter('age')">
-            <mat-option *ngFor="let o of ageParam" [value]="o.name">
+        <mat-select>
+            <mat-option *ngFor="let o of departmentParam" [value]="o.name">
                 {{ o.name }}
             </mat-option>
         </mat-select>
     </mat-form-field>
     <mat-form-field class="select-table" appearance="fill">
         <mat-label>Department</mat-label>
-        <mat-select [(ngModel)]="departmentOption" (selectionChange)="dataFilter('department')">
+        <mat-select>
             <mat-option *ngFor="let o of departmentParam" [value]="o.name">
                 {{ o.name }}
             </mat-option>
@@ -54,7 +61,7 @@
     </mat-form-field>
     <mat-form-field class="select-table" appearance="fill">
         <mat-label>Teamlead</mat-label>
-        <mat-select [(ngModel)]="teamleadOption" (selectionChange)="dataFilter('teamlead')">
+        <mat-select>
             <mat-option *ngFor="let o of teamleadParam" [value]="o.name">
                 {{ o.name }}
             </mat-option>
