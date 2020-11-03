@@ -1,8 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatTable, MatTableDataSource } from '@angular/material/table';
+import { MatTable, MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { USERS } from '../auth/databaseUsers';
 import { AuthService } from '../auth/auth.service';
-import { MatSort } from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../dialog/dialog.component';
 
@@ -23,6 +22,7 @@ export class MainPageComponent implements OnInit {
         'id',
         'username',
         'email',
+<<<<<<< HEAD
         'age',
         'department',
         'teamlead',
@@ -32,11 +32,17 @@ export class MainPageComponent implements OnInit {
         //department { all, all depart, no depart }
         //teamlead(bool) { teamlead , not teamlead} 
         //sort ++
+=======
+        'password',
+        'verify',
+        'edit',
+>>>>>>> parent of b8a0f90... sort
     ];
 
     isLogin() {
         return !this.authService.isLogged;
     }
+
     openDialog(action, obj) {
         obj.action = action;
         const dialogRef = this.dialog.open(DialogComponent, {
@@ -54,19 +60,20 @@ export class MainPageComponent implements OnInit {
             }
         });
     }
+
     createUser(row_obj) {
-        const id = this.userData.data.length;
+        let id = this.userData.data.length;
         this.userData.data.push({
             id: id + 1,
             username: row_obj.username,
             email: row_obj.email,
             password: row_obj.password,
-            age: row_obj.age,
-            department: row_obj.department,
-            teamlead: row_obj.department,
-            verification: row_obj.verification,
+            verification: false,
         });
+<<<<<<< HEAD
         console.log('я работаюы');
+=======
+>>>>>>> parent of b8a0f90... sort
         this.table.renderRows();
         // return true;
     }
@@ -76,10 +83,6 @@ export class MainPageComponent implements OnInit {
                 value.username = row_obj.username;
                 value.email = row_obj.email;
                 value.password = row_obj.password;
-                value.age = row_obj.age;
-                value.department = row_obj.department;
-                value.teamlead = row_obj.teamlead;
-                value.verification = row_obj.verification;
             }
             return true;
         });
@@ -90,17 +93,12 @@ export class MainPageComponent implements OnInit {
         });
     }
 
-    @ViewChild(MatSort) sort: MatSort;
-
-    ngAfterViewInit() {
-        this.userData.sort = this.sort;
-    }
-
     applyFilter(event: Event) {
         const filterValue = (event.target as HTMLInputElement).value;
         this.userData.filter = filterValue.trim().toLowerCase();
     }
 
+<<<<<<< HEAD
     ageOption: string;
     departmentOption: string;
     teamleadOption: string;
@@ -186,4 +184,7 @@ export class MainPageComponent implements OnInit {
     }
 
     ngOnInit(): void { }
+=======
+    ngOnInit(): void {}
+>>>>>>> parent of b8a0f90... sort
 }
