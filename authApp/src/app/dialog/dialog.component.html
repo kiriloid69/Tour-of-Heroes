@@ -1,73 +1,168 @@
-<mat-dialog-content>
-    <div *ngIf="action != 'Delete'; else elseTemplate">
-        <mat-card-title class="card-title">{{ action }} user</mat-card-title>
-        <mat-form-field
-            style="display: block; margin-top: 25px"
-            appearance="fill"
+<form #form="ngForm">
+    <mat-dialog-content>
+        <div *ngIf="action != 'Delete'; else elseTemplate">
+            <mat-card-title class="card-title"
+                >{{ action }} user</mat-card-title
+            >
+            <mat-form-field
+                style="display: block; margin-top: 25px"
+                appearance="fill"
+            >
+                <mat-label>Enter username</mat-label>
+                <input
+                    name="usermane"
+                    [(ngModel)]="local_data.username"
+                    matInput
+                    required
+                />
+            </mat-form-field>
+            <mat-form-field style="display: block" appearance="fill">
+                <mat-label>Enter email</mat-label>
+                <input
+                    name="email"
+                    [(ngModel)]="local_data.email"
+                    matInput
+                    required
+                />
+                <!-- <mat-error *ngIf="form.form.get('username')?.valid">...</mat-error> -->
+            </mat-form-field>
+            
+            <mat-form-field style="display: block" appearance="fill">
+                <mat-label>Enter password</mat-label>
+                <input
+                    name="password"
+                    [(ngModel)]="local_data.password"
+                    matInput
+                    required
+                />
+            </mat-form-field>
+            <mat-form-field style="display: block" appearance="fill">
+                <mat-label>Enter age</mat-label>
+                <input
+                    name="age"
+                    [(ngModel)]="local_data.age"
+                    matInput
+                    required
+                />
+            </mat-form-field>
+            <mat-form-field style="display: block" appearance="fill">
+                <mat-label>Enter department</mat-label>
+                <input
+                    name="department"
+                    [(ngModel)]="local_data.department"
+                    matInput
+                />
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Teamlead</mat-label>
+                <mat-select [(ngModelSelected)]="local_data.teamlead">
+                    <mat-option value="true">true</mat-option>
+                    <mat-option value="false">false</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field
+                style="margin-left: 20px"
+                appearance="fill"
+                required
+            >
+                <mat-label>Verify</mat-label>
+                <mat-select [(ngModelSelected)]="local_data.verification">
+                    <mat-option>true</mat-option>
+                    <mat-option>false</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <ng-template #elseTemplate>
+            Sure to delete <b>{{ local_data.username }}</b
+            >?
+        </ng-template>
+    </mat-dialog-content>
+    <div mat-dialog-actions>
+        <button
+            type="submit"
+            mat-raised-button
+            color="primary"
+            (click)="doAction()"
+            [disabled]="!form.valid"
         >
-            <mat-label>Enter username</mat-label>
-            <input
-                name="usermane"
-                [(ngModel)]="local_data.username"
-                matInput
-                required
-            />
-        </mat-form-field>
-        <mat-form-field style="display: block" appearance="fill">
-            <mat-label>Enter email</mat-label>
-            <input [(ngModel)]="local_data.email" matInput required />
-        </mat-form-field>
-        <mat-form-field style="display: block" appearance="fill">
-            <mat-label>Enter password</mat-label>
-            <input
-                name="password"
-                type="password"
-                [(ngModel)]="local_data.password"
-                matInput
-                required
-            />
-        </mat-form-field>
-        <mat-form-field style="display: block" appearance="fill">
-            <mat-label>Enter age</mat-label>
-            <input
-                name="password"
-                [(ngModel)]="local_data.age"
-                matInput
-                required
-            />
-        </mat-form-field>
-        <mat-form-field style="display: block" appearance="fill">
-            <mat-label>Enter department</mat-label>
-            <input
-                name="password"
-                [(ngModel)]="local_data.department"
-                matInput
-                required
-            />
-        </mat-form-field>
-        <mat-form-field appearance="fill">
-            <mat-label>Teamlead</mat-label>
-            <mat-select [(ngModel)]="local_data.teamlead">
-                <mat-option value="true">true</mat-option>
-                <mat-option value="false">false</mat-option>
-            </mat-select>
-        </mat-form-field>
-        <mat-form-field style="margin-left: 20px;" appearance="fill">
-            <mat-label>Verify</mat-label>
-            <mat-select [(ngModel)]="local_data.verification">
-                <mat-option value="true">true</mat-option>
-                <mat-option value="false">false</mat-option>
-            </mat-select>
-        </mat-form-field>
+            {{ action }}
+        </button>
+        <button mat-flat-button color="warn" (click)="closeDialog()">
+            Cancel
+        </button>
     </div>
-    <ng-template #elseTemplate>
-        Sure to delete <b>{{ local_data.username }}</b
-        >?
-    </ng-template>
-</mat-dialog-content>
-<div mat-dialog-actions>
-    <button mat-raised-button color="primary" (click)="doAction()">
-        {{ action }}
-    </button>
-    <button mat-flat-button color="warn" (click)="closeDialog()">Cancel</button>
-</div>
+</form>
+<!-- <mat-dialog-content>
+        <div *ngIf="action != 'Delete'; else elseTemplate">
+            <mat-card-title class="card-title">{{ action }} user</mat-card-title>
+            <mat-form-field
+                style="display: block; margin-top: 25px"
+                appearance="fill"
+            >
+                <mat-label>Enter username</mat-label>
+                <input
+                    name="usermane"
+                    [(ngModel)]="local_data.username"
+                    matInput
+                    required
+                />
+            </mat-form-field>
+            <mat-form-field style="display: block" appearance="fill">
+                <mat-label>Enter email</mat-label>
+                <input name="email" [(ngModel)]="local_data.email" matInput required />
+            </mat-form-field>
+            <mat-form-field style="display: block" appearance="fill">
+                <mat-label>Enter password</mat-label>
+                <input
+                    name="password"
+                    [(ngModel)]="local_data.password"
+                    matInput
+                    required
+                />
+            </mat-form-field>
+            <mat-form-field style="display: block" appearance="fill">
+                <mat-label>Enter age</mat-label>
+                <input
+                    name="age"
+                    [(ngModel)]="local_data.age"
+                    matInput
+                    required
+                />
+            </mat-form-field>
+            <mat-form-field style="display: block" appearance="fill">
+                <mat-label>Enter department</mat-label>
+                <input
+                    name="password"
+                    [(ngModel)]="local_data.department"
+                    matInput
+                />
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Teamlead</mat-label>
+                <mat-select [(ngModel)]="local_data.teamlead" required>
+                    <mat-option value="true">true</mat-option>
+                    <mat-option value="false">false</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field style="margin-left: 20px" appearance="fill" required>
+                <mat-label>Verify</mat-label>
+                <mat-select [(ngModel)]="local_data.verification">
+                    <mat-option [selected]="local_data.verification == 'true'" value="true">true</mat-option>
+                    <mat-option [selected]="local_data.verification == 'false'" value="false">false</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <ng-template #elseTemplate>
+            Sure to delete <b>{{ local_data.username }}</b>?
+        </ng-template>
+    </mat-dialog-content>
+    <div mat-dialog-actions>
+        <button
+            mat-raised-button
+            color="primary"
+            (click)="doAction()" 
+        >
+            {{ action }}
+        </button>
+        <button mat-flat-button color="warn" (click)="closeDialog()">Cancel</button>
+    </div> -->

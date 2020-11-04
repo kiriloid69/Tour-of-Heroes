@@ -25,13 +25,15 @@ export class DialogComponent implements OnInit {
         public dialogRef: MatDialogRef<DialogComponent>,
         @Inject(MAT_DIALOG_DATA) public data: User
     ) {
-        console.log(data);
+        // console.log(data);
         this.local_data = { ...data };
         this.action = this.local_data.action;
     }
 
     doAction() {
+        // проверка на то, что вернула функция createUser if true => 
         this.dialogRef.close({ event: this.action, data: this.local_data });
+        // else not closed dialog
     }
 
     closeDialog() {
