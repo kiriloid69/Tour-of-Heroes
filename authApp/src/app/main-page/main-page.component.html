@@ -30,31 +30,34 @@
             #input
         />
     </mat-form-field>
+
     <mat-form-field class="select-table" appearance="fill">
         <mat-label>Age</mat-label>
-        <mat-select [(ngModel)]="ageOption" (selectionChange)="dataFilter('age')">
-            <mat-option *ngFor="let o of ageParam" [value]="o.name">
-                {{ o.name }}
-            </mat-option>
-        </mat-select>
-    </mat-form-field>
-    <mat-form-field class="select-table" appearance="fill">
-        <mat-label>Department</mat-label>
-        <mat-select [(ngModel)]="departmentOption" (selectionChange)="dataFilter('department')">
-            <mat-option *ngFor="let o of departmentParam" [value]="o.name">
-                {{ o.name }}
-            </mat-option>
-        </mat-select>
-    </mat-form-field>
-    <mat-form-field class="select-table" appearance="fill">
-        <mat-label>Teamlead</mat-label>
-        <mat-select [(ngModel)]="teamleadOption" (selectionChange)="dataFilter('teamlead')">
-            <mat-option *ngFor="let o of teamleadParam" [value]="o.name">
+        <mat-select [(ngModel)]="ageOption" (ngModelChange)="dataFilter('age')">
+            <mat-option *ngFor="let o of ageParam" [value]="o.value">
                 {{ o.name }}
             </mat-option>
         </mat-select>
     </mat-form-field>
 
+    <mat-form-field class="select-table" appearance="fill">
+        <mat-label>Department</mat-label>
+        <mat-select [(ngModel)]="departmentOption" (selectionChange)="dataFilter('department')">
+            <mat-option *ngFor="let o of departmentParam" [value]="o.value">
+                {{ o.name }}
+            </mat-option>
+        </mat-select>
+
+    </mat-form-field>
+    <mat-form-field class="select-table" appearance="fill">
+        <mat-label>Teamlead</mat-label>
+        <mat-select [(ngModel)]="teamleadOption" (selectionChange)="dataFilter('teamlead')">
+            <mat-option *ngFor="let o of teamleadParam" [value]="o.value">
+                {{ o.name }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field> 
+    
     <table
         mat-table
         [dataSource]="userData"
@@ -78,14 +81,6 @@
         <ng-container matColumnDef="email">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
             <td mat-cell *matCellDef="let element">{{ element.email }}</td>
-        </ng-container>
-
-        <!-- Password Column -->
-        <ng-container matColumnDef="password">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Password</th>
-            <td class="hidetext" mat-cell *matCellDef="let element">
-                {{ element.password }}
-            </td>
         </ng-container>
 
         <!-- Age Column -->

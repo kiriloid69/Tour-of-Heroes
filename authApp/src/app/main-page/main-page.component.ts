@@ -12,10 +12,6 @@ import { DialogComponent } from '../dialog/dialog.component';
     styleUrls: ['./main-page.component.css'],
 })
 export class MainPageComponent implements OnInit {
-    filters: any;
-    filterKeys: any;
-    reducer = (accumulator: boolean, currentValue: boolean) =>
-        accumulator && currentValue;
 
     constructor(private authService: AuthService, public dialog: MatDialog) {}
 
@@ -25,18 +21,11 @@ export class MainPageComponent implements OnInit {
         'id',
         'username',
         'email',
-        'password',
         'age',
         'department',
         'teamlead',
         'verification',
-        'edit',
-        //age { < 30 }
-        //department { all, all depart, no depart }
-        //teamlead(bool) { teamlead , not teamlead}
-        //sort ++
-
-        /////////// не добавляется значения из селектов
+        'edit'
     ];
 
     @ViewChild('table') table: MatTable<Element>;
@@ -124,30 +113,6 @@ export class MainPageComponent implements OnInit {
         this.userData.filter = filterValue.trim().toLowerCase();
     }
 
-    // applyFilter(column: string, filterValue: string) {
-    //     if (!this.filters[column]) {
-    //         this.filters[column] = ""
-    //     }
-    //     this.filters[column] = filterValue;
-    //     this.filterKeys = Object.keys(this.filters)
-    //     this.userData.filter =  JSON.stringify(this.filters);
-    // }
-    // setupFilter() {
-    //     return (d: any, filter: string) => {
-    //         let conditions: any;
-    //         conditions = [];
-    //         this.filterKeys.forEach((filterKey: string) => {
-    //             conditions.push(this.searchString(d[filterKey], this.filters[filterKey]))
-    //         });
-
-    //         return conditions.reduce(this.reducer);
-    //     };
-    // }
-    // searchString(columnValue: string, filterVales: string) {
-    //     const textToSearch = columnValue && columnValue.toLowerCase() || '';
-    //     return textToSearch.indexOf(filterVales.toLowerCase() ) !== -1;
-    // }
-
     ageOption: string;
     departmentOption: string;
     teamleadOption: string;
@@ -171,74 +136,67 @@ export class MainPageComponent implements OnInit {
     ];
 
     dataFilter(dataFilter) {
-        let data = 'this.' + dataFilter + 'Param';
-        console.log(data);
-        if (data === 'this.ageParam') {
-            // console.log(this.ageParam.values());
-            if (this.ageOption === 'up to 30 years') {
-                let mas = [];
-                for (let i = 0; i < this.userData.data.length; i++) {
-                    if (this.userData.data[i].age <= 30) {
-                        mas.push(i);
-                        // console.log(mas)
-                    }
-                }
+        // this.userData = new MatTableDataSource(USERS);
+        let userFilter = this.userData;
+
+        if (dataFilter === 'age') {
+            if (this.ageOption == '1') {
+                this.userData = new MatTableDataSource(USERS);
+            } else if (this.ageOption == '2') {
+                const mas = this.userData.data.filter(function (e) {
+                    return e.age < 30;
+                });
                 console.log(mas);
-            } else if (this.ageOption === 'over 30 years') {
-                let mas = [];
-                for (let i = 0; i < this.userData.data.length; i++) {
-                    if (this.userData.data[i].age > 30) {
-                        mas.push(i);
-                        // console.log(mas)
-                    }
-                }
+                this.userData.data = mas;
+            } else if (this.ageOption == '3') {
+                const mas = this.userData.data.filter(function (e) {
+                    return e.age >= 30;
+                });
                 console.log(mas);
-            } else {
-                this.userData.filter = ''.trim().toLowerCase();
+                this.userData.data = mas;
             }
-        } else if (data === 'this.departmentParam') {
-            if (this.departmentOption === 'all department') {
-                let mas = [];
-                for (let i = 0; i < this.userData.data.length; i++) {
-                    if (this.userData.data[i].department !== '') {
-                        mas.push(i);
-                    }
-                }
+        } else if (dataFilter === 'department') {
+            if ( this.departmentOption == '1' ) {
+                this.userData = new MatTableDataSource(USERS);
+            }
+            
+            if ( this.departmentOption == '2' ) {
+                const mas = this.userData.data.filter(function (e) {
+                    return e.department !== '';
+                });
                 console.log(mas);
+                this.userData.data = mas;
             }
 
-            if (this.departmentOption === 'no department') {
-                let mas = [];
-                for (let i = 0; i < this.userData.data.length; i++) {
-                    if (this.userData.data[i].department == '') {
-                        mas.push(i);
-                    }
-                }
+            if ( this.departmentOption == '3' ) {
+                const mas = this.userData.data.filter(function (e) {
+                    return e.department == '';
+                });
                 console.log(mas);
-            } else {
-                this.userData.filter = ''.trim().toLowerCase();
+                this.userData.data = mas;
             }
-        } else if (data === 'this.teamleadParam') {
-            if (this.teamleadOption === 'teamlead') {
-                let mas = [];
-                for (let i = 0; i < this.userData.data.length; i++) {
-                    if (this.userData.data[i].teamlead == true) {
-                        mas.push(i);
-                    }
-                }
+        } else if (dataFilter === 'teamlead') {
+            if ( this.teamleadOption == '1' ) {
+                this.userData = new MatTableDataSource(USERS);
+            }
+            
+            if ( this.teamleadOption == '2' ) {
+                const mas = this.userData.data.filter(function (e) {
+                    return e.teamlead;
+                });
                 console.log(mas);
-            } else if (this.teamleadOption === 'not teamlead') {
-                let mas = [];
-                for (let i = 0; i < this.userData.data.length; i++) {
-                    if (this.userData.data[i].teamlead == false) {
-                        mas.push(i);
-                    }
-                }
+                this.userData.data = mas;
+            }
+
+            if ( this.teamleadOption == '3' ) {
+                const mas = this.userData.data.filter(function (e) {
+                    return !e.teamlead;
+                });
                 console.log(mas);
-            } else {
-                this.userData.filter = ''.trim().toLowerCase();
+                this.userData.data = mas;
             }
         }
+            
     }
 
     ngOnInit(): void {}
