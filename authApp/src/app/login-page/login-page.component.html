@@ -12,6 +12,7 @@
                 name="username"
                 formControlName="username"
                 placeholder="username"
+                onkeyup="this.value = this.value.replace(/[^a-z0-9_-]/, '')"
                 required
             />
         </mat-form-field>
@@ -22,6 +23,7 @@
                 matInput
                 formControlName="password"
                 [type]="hide ? 'password' : 'text'"
+                onkeyup="this.value = this.value.replace(/[А-Яа-яЁё]/,'');"
                 autocomplete
             />
             <button

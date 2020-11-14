@@ -12,10 +12,32 @@ import { DialogComponent } from '../dialog/dialog.component';
     styleUrls: ['./main-page.component.css'],
 })
 export class MainPageComponent implements OnInit {
-
     constructor(private authService: AuthService, public dialog: MatDialog) {}
 
     userData = new MatTableDataSource(USERS);
+
+    ageOption: string;
+    departmentOption: string;
+    teamleadOption: string;
+    searchValue: string;
+
+    ageParam = [
+        { name: 'all', value: 1 },
+        { name: 'up to 30 years', value: 2 },
+        { name: 'over 30 years', value: 3 },
+    ];
+
+    departmentParam = [
+        { name: 'all', value: 1 },
+        { name: 'all department', value: 2 },
+        { name: 'no department', value: 3 },
+    ];
+
+    teamleadParam = [
+        { name: 'all', value: 1 },
+        { name: 'teamlead', value: 2 },
+        { name: 'not teamlead', value: 3 },
+    ];
 
     displayedColumns: string[] = [
         'id',
@@ -25,10 +47,16 @@ export class MainPageComponent implements OnInit {
         'department',
         'teamlead',
         'verification',
-        'edit'
+        'edit',
     ];
 
     @ViewChild('table') table: MatTable<Element>;
+
+    @ViewChild(MatSort) sort: MatSort;
+
+    ngAfterViewInit() {
+        this.userData.sort = this.sort;
+    }
 
     isLogin() {
         return !this.authService.isLogged;
@@ -101,103 +129,82 @@ export class MainPageComponent implements OnInit {
             return value.id != row_obj.id;
         });
     }
-
-    @ViewChild(MatSort) sort: MatSort;
-
-    ngAfterViewInit() {
-        this.userData.sort = this.sort;
-    }
-
     applyFilter(event: Event) {
         const filterValue = (event.target as HTMLInputElement).value;
+        this.dataFilter();
         this.userData.filter = filterValue.trim().toLowerCase();
     }
+    dataFilter() {
+        const filterValue = this.searchValue;
+        console.log(filterValue)
+        this.userData = new MatTableDataSource(USERS);
 
-    ageOption: string;
-    departmentOption: string;
-    teamleadOption: string;
+        this.userData.filter = filterValue;
 
-    ageParam = [
-        { name: 'all', value: 1 },
-        { name: 'up to 30 years', value: 2 },
-        { name: 'over 30 years', value: 3 },
-    ];
-
-    departmentParam = [
-        { name: 'all', value: 1 },
-        { name: 'all department', value: 2 },
-        { name: 'no department', value: 3 },
-    ];
-
-    teamleadParam = [
-        { name: 'all', value: 1 },
-        { name: 'teamlead', value: 2 },
-        { name: 'not teamlead', value: 3 },
-    ];
-
-    dataFilter(dataFilter) {
-        // this.userData = new MatTableDataSource(USERS);
-        let userFilter = this.userData;
-
-        if (dataFilter === 'age') {
-            if (this.ageOption == '1') {
-                this.userData = new MatTableDataSource(USERS);
-            } else if (this.ageOption == '2') {
-                const mas = this.userData.data.filter(function (e) {
-                    return e.age < 30;
-                });
-                console.log(mas);
-                this.userData.data = mas;
-            } else if (this.ageOption == '3') {
-                const mas = this.userData.data.filter(function (e) {
-                    return e.age >= 30;
-                });
-                console.log(mas);
-                this.userData.data = mas;
-            }
-        } else if (dataFilter === 'department') {
-            if ( this.departmentOption == '1' ) {
-                this.userData = new MatTableDataSource(USERS);
-            }
-            
-            if ( this.departmentOption == '2' ) {
-                const mas = this.userData.data.filter(function (e) {
-                    return e.department !== '';
-                });
-                console.log(mas);
-                this.userData.data = mas;
-            }
-
-            if ( this.departmentOption == '3' ) {
-                const mas = this.userData.data.filter(function (e) {
-                    return e.department == '';
-                });
-                console.log(mas);
-                this.userData.data = mas;
-            }
-        } else if (dataFilter === 'teamlead') {
-            if ( this.teamleadOption == '1' ) {
-                this.userData = new MatTableDataSource(USERS);
-            }
-            
-            if ( this.teamleadOption == '2' ) {
-                const mas = this.userData.data.filter(function (e) {
-                    return e.teamlead;
-                });
-                console.log(mas);
-                this.userData.data = mas;
-            }
-
-            if ( this.teamleadOption == '3' ) {
-                const mas = this.userData.data.filter(function (e) {
-                    return !e.teamlead;
-                });
-                console.log(mas);
-                this.userData.data = mas;
-            }
+        if (this.ageOption == '1') {
+            const mas = this.userData.data.filter(function (e) {
+                return e.age;
+            });
+            this.userData.data = mas;
         }
-            
+
+        if (this.ageOption == '2') {
+            const mas = this.userData.data.filter(function (e) {
+                return e.age < 30;
+            });
+            this.userData.data = mas;
+        }
+
+        if (this.ageOption == '3') {
+            const mas = this.userData.data.filter(function (e) {
+                return e.age >= 30;
+            });
+            this.userData.data = mas;
+        }
+
+        if (this.departmentOption == '1') {
+            const mas = this.userData.data.filter(function (e) {
+                return e.department !== undefined;
+            });
+            this.userData.data = mas;
+        }
+
+        if (this.departmentOption == '2') {
+            const mas = this.userData.data.filter(function (e) {
+                return e.department !== '';
+            });
+            this.userData.data = mas;
+        }
+
+        if (this.departmentOption == '3') {
+            const mas = this.userData.data.filter(function (e) {
+                return e.department == '';
+            });
+            this.userData.data = mas;
+        }
+
+        if (this.teamleadOption == '1') {
+            const mas = this.userData.data.filter(function (e) {
+                return e.teamlead !== undefined;
+            });
+            this.userData.data = mas;
+        }
+
+        if (this.teamleadOption == '2') {
+            const mas = this.userData.data.filter(function (e) {
+                return e.teamlead;
+            });
+            this.userData.data = mas;
+        }
+
+        if (this.teamleadOption == '3') {
+            const mas = this.userData.data.filter(function (e) {
+                return !e.teamlead;
+            });
+            this.userData.data = mas;
+        }
     }
 
-    ngOnInit(): void {}
+    ngOnInit() { }
+
 }

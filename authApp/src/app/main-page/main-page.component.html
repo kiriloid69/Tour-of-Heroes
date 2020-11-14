@@ -1,4 +1,4 @@
-<div *ngIf="isLogin()" class="card">
+<div *ngIf="!isLogin()" class="card">
     <h2 class="main-title">Hello, you can register or login</h2>
     <div style="text-align: center">
         <button style="margin: 0 5px" mat-raised-button routerLink="/login">
@@ -26,6 +26,7 @@
         <input
             matInput
             (keyup)="applyFilter($event)"
+            [(ngModel)]="searchValue"
             placeholder="enter username"
             #input
         />
@@ -33,7 +34,7 @@
 
     <mat-form-field class="select-table" appearance="fill">
         <mat-label>Age</mat-label>
-        <mat-select [(ngModel)]="ageOption" (ngModelChange)="dataFilter('age')">
+        <mat-select [(ngModel)]="ageOption" (ngModelChange)="dataFilter();">
             <mat-option *ngFor="let o of ageParam" [value]="o.value">
                 {{ o.name }}
             </mat-option>
@@ -42,7 +43,7 @@
 
     <mat-form-field class="select-table" appearance="fill">
         <mat-label>Department</mat-label>
-        <mat-select [(ngModel)]="departmentOption" (selectionChange)="dataFilter('department')">
+        <mat-select [(ngModel)]="departmentOption" (ngModelChange)="dataFilter()">
             <mat-option *ngFor="let o of departmentParam" [value]="o.value">
                 {{ o.name }}
             </mat-option>
@@ -51,7 +52,7 @@
     </mat-form-field>
     <mat-form-field class="select-table" appearance="fill">
         <mat-label>Teamlead</mat-label>
-        <mat-select [(ngModel)]="teamleadOption" (selectionChange)="dataFilter('teamlead')">
+        <mat-select [(ngModel)]="teamleadOption" (ngModelChange)="dataFilter()">
             <mat-option *ngFor="let o of teamleadParam" [value]="o.value">
                 {{ o.name }}
             </mat-option>
@@ -105,19 +106,18 @@
         <ng-container matColumnDef="teamlead">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Teamlead</th>
             <td mat-cell *matCellDef="let element">
-                {{ element.teamlead }}
+                <mat-icon [style.color]="element.teamlead ? '#00cc81' : 'red'">{{element.teamlead ? 'check' : 'cancel'}}</mat-icon>
             </td>
         </ng-container>
-
         <!-- Verification Column -->
-        <ng-container matColumnDef="verification">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>
-                Verification
-            </th>
-            <td mat-cell *matCellDef="let element">
-                {{ element.verification }}
-            </td>
-        </ng-container>
+        <div>
+            <ng-container  matColumnDef="verification">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Verification</th>
+                <td mat-cell *matCellDef="let element">
+                    <mat-icon  [style.color]="element.verification ? '#00cc81' : 'red'">{{element.verification ? 'check_box' : 'indeterminate_check_box'}}</mat-icon>
+                </td>
+            </ng-container>
+        </div>
 
         <!-- Edit Column -->
         <ng-container matColumnDef="edit">
@@ -134,7 +134,7 @@
                 <button
                     mat-icon-button
                     color="warn"
-                    title="Delete element"
+                    title="Delete user"
                     (click)="openDialog('Delete', element)"
                 >
                     <mat-icon>delete_outline</mat-icon>

@@ -31,7 +31,7 @@ export class DialogComponent implements OnInit {
     }
 
     doAction() {
-        // проверка на то, что вернула функция createUser if true => 
+        // проверка на то, что вернула функция createUser if true =>
         this.dialogRef.close({ event: this.action, data: this.local_data });
         // else not closed dialog
     }

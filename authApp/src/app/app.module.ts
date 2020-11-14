@@ -16,6 +16,7 @@ import { RestorePasswordComponent } from './restore-password/restore-password.co
 import { RegisterPageComponent } from './register-page/register-page.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { DialogComponent } from './dialog/dialog.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 @NgModule({
     declarations: [
@@ -26,7 +27,8 @@ import { DialogComponent } from './dialog/dialog.component';
         ToolbarComponent,
         MainPageComponent,
         ValueComponent,
-        DialogComponent
+        DialogComponent,
+        ForgotPasswordComponent
     ],
     imports: [
         BrowserModule,

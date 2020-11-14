@@ -11,6 +11,7 @@
                 name="usermane"
                 formControlName="username"
                 matInput
+                onkeyup="this.value = this.value.replace(/[А-Яа-яЁё]/,'');"
                 placeholder="usermane"
                 required
             />
@@ -22,6 +23,7 @@
                 matInput
                 formControlName="email"
                 placeholder="inbox@gmail.com"
+                onkeyup="this.value = this.value.replace(/[А-Яа-яЁё]/,'');"
                 required
             />
             <mat-error>{{ getErrorMessage() }}</mat-error>
@@ -33,6 +35,7 @@
                 formControlName="password"
                 matInput
                 [type]="hide ? 'password' : 'text'"
+                onkeyup="this.value = this.value.replace(/[А-Яа-яЁё]/,'');"
                 required
                 autocomplete
             />
@@ -56,6 +59,7 @@
                 formControlName="repeatPassword"
                 matInput
                 [type]="hide ? 'password' : 'text'"
+                onkeyup="this.value = this.value.replace(/[А-Яа-яЁё]/,'');"
                 required
                 autocomplete
             />
